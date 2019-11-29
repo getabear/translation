@@ -1,3 +1,5 @@
+//抓取的js代码
+
 this.seajs = {
     _seajs: this.seajs
 },
