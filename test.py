@@ -1,3 +1,8 @@
 import youdao
+import analytical_pdf
 a=youdao.youdao()
-print(a.fun("i love you"))
+path="./text.pdf"
+analytical_pdf.parse(path,"./2.txt")
+with open ("./2.txt","r") as f:
+    text=f.read()
+    print(text)

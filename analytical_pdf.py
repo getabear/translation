@@ -48,7 +48,7 @@ def parse(path,dest):  #path->dest
                 for x in layout:
                     if (isinstance(x, LTTextBoxHorizontal)):   #如果为字符就可以添加到文件中
                             results = x.get_text()
-                            print(results)
+                            # print(results)
                             f.write(results + '\n')
                 f.close()
 
