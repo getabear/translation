@@ -12,7 +12,7 @@ from pdfminer.pdfinterp import PDFTextExtractionNotAllowed
  解析pdf 文本，保存到txt文件中
 '''
 
-def parse(path,dest):  #path->dest
+def parse(path,dest):  #path->dest   end==0时默认到末尾
     fp = open(path, 'rb') # 以二进制读模式打开
     #用文件对象来创建一个pdf文档分析器
     praser = PDFParser(fp)
@@ -37,20 +37,20 @@ def parse(path,dest):  #path->dest
         device = PDFPageAggregator(rsrcmgr, laparams=laparams)
         # 创建一个PDF解释器对象
         interpreter = PDFPageInterpreter(rsrcmgr, device)
-
-        # 循环遍历列表，每次处理一个page的内容
-        for page in doc.get_pages(): # doc.get_pages() 获取page列表
-            interpreter.process_page(page)
-            # 接受该页面的LTPage对象
-            layout = device.get_result()
-            # 这里layout是一个LTPage对象 里面存放着 这个page解析出的各种对象 一般包括LTTextBox, LTFigure, LTImage, LTTextBoxHorizontal 等等 想要获取文本就获得对象的text属性，
-            with open(dest, 'w') as f:
+        # temp=doc.get_pages()
+        with open(dest, 'w',encoding='utf-8') as f:
+            # 循环遍历列表，每次处理一个page的内容
+            for page in doc.get_pages(): # doc.get_pages() 获取page列表
+                interpreter.process_page(page)
+                # 接受该页面的LTPage对象
+                layout = device.get_result()
+                # 这里layout是一个LTPage对象 里面存放着 这个page解析出的各种对象 一般包括LTTextBox, LTFigure, LTImage, LTTextBoxHorizontal 等等 想要获取文本就获得对象的text属性，
                 for x in layout:
                     if (isinstance(x, LTTextBoxHorizontal)):   #如果为字符就可以添加到文件中
                             results = x.get_text()
                             # print(results)
-                            f.write(results + '\n')
-                f.close()
+                            f.write(results)
+            f.close()
 
 path="D:/360Downloads/text.pdf"
 parse(path,"./2.txt")
@@ -62,8 +62,8 @@ parse(path,"./2.txt")
 # import PyPDF2   #该库对中文的支持很差,所以我们使用pdfminer
 # # import youdao
 # # import pdfminer    #终于可以用了
-#
-# path="D:/360Downloads/嵌入式开发实习 - 周军 - 应届生 - 17132302080.pdf"
+#   import pdfplumber 另一个pdf解析器
+# path="D:/360Downloads/.pdf"
 #
 #
 # with open(path,"rb") as f:
