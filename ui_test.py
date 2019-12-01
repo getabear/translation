@@ -12,6 +12,9 @@ class Mywindow(QtWidgets.QWidget):
         # self.myButton.setGeometry(100,100,100,30)
         # self.myButton.clicked.connect(self.msg)
     def msg(self):
+        # QFileDialog.getExistingDirectory()self参数同样不能省略
+        # directory=QFileDialog.getExistingDirectory(self,"选择文件夹","./")
+        # print(directory)
         directory1=QFileDialog.getExistingDirectory(self,"选择文件夹","./")
         # print(directory1)
         fileName1,filetype=QFileDialog.getOpenFileName(self,"选取文件",directory1,
@@ -43,7 +46,7 @@ if __name__=="__main__":
 
     #定义一个下拉菜单的action
     open1=QtWidgets.QAction(QtGui.QIcon("file.ico"),"&open")
-    open1.triggered.connect(mwid.msg)    #传入函数指针,我试了半天
+    open1.triggered.connect(mwid.msg)                       #传入函数指针,我试了半天
 
 
     #菜单栏添加菜单
